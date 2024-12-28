@@ -1,0 +1,11 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+<h2>Editar publicación</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn">Guardar cambios</button>
+</form>
+<a href="{% url 'home' %}" class="btn">Cancelar</a>
+{% endblock %}

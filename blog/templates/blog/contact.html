@@ -1,0 +1,28 @@
+{% extends "base_generic.html" %}
+
+{% block title %}Contacto - Mi Blog de Viajes{% endblock %}
+
+{% block meta_description %}Ponte en contacto con nosotros para consultas, sugerencias o colaboraciones.{% endblock %}
+
+{% block content %}
+<h1>Contacto</h1>
+<p>¿Tienes alguna pregunta, sugerencia o propuesta de colaboración? ¡Nos encantaría saber de ti!</p>
+
+{% if success %}
+    <p class="success-message">¡Gracias por contactarnos! Nos pondremos en contacto contigo lo antes posible.</p>
+{% else %}
+    <form method="post" class="contact-form">
+        {% csrf_token %}
+        <label for="name">Nombre:</label>
+        <input type="text" id="name" name="name" required placeholder="Tu nombre">
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required placeholder="Tu correo electrónico">
+
+        <label for="message">Mensaje:</label>
+        <textarea id="message" name="message" rows="5" required placeholder="Tu mensaje"></textarea>
+
+        <button type="submit" class="btn-submit">Enviar</button>
+    </form>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base_generic.html' %}
+
+{% block title %}Posts con la Etiqueta: {{ tag.name }}{% endblock %}
+
+{% block content %}
+    <h2>Posts con la Etiqueta: {{ tag.name }}</h2>
+    <ul>
+        {% for post in posts %}
+            <li><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></li>
+        {% empty %}
+            <p>No hay publicaciones con esta etiqueta.</p>
+        {% endfor %}
+    </ul>
+{% endblock %}

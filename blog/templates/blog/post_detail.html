@@ -1,0 +1,42 @@
+{% extends 'base_generic.html' %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+<article>
+    <h2>{{ post.title }}</h2>
+    <p><strong>Autor:</strong> {{ post.author.username }}</p>
+    <p><strong>Categoría:</strong> {{ post.category.name }}</p>
+
+    <!-- Muestra la imagen del post si existe -->
+    {% if post.image %}
+    <div class="post-image">
+        <img src="{{ post.image.url }}" alt="{{ post.title }}">
+    </div>
+    {% endif %}
+
+    <div>{{ post.content }}</div>
+    <p><strong>Vistas:</strong> {{ post.views }}</p>
+
+    <!-- Botones de Editar y Eliminar -->
+    {% if user.is_authenticated and user == post.author %}
+        <div class="post-actions">
+            <a href="{% url 'post_edit' post.slug %}" class="btn">Editar</a>
+            <a href="{% url 'post_delete' post.slug %}" class="btn-logout">Eliminar</a>
+        </div>
+    {% endif %}
+</article>
+
+<section>
+    <h3>Comentarios</h3>
+    {% for comment in post.comments.all %}
+        <div class="comment">
+            <p><strong>{{ comment.author }}</strong> dijo:</p>
+            <p>{{ comment.content }}</p>
+            <p><small>{{ comment.created_at }}</small></p>
+        </div>
+    {% empty %}
+        <p>No hay comentarios aún.</p>
+    {% endfor %}
+</section>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+<h2>Eliminar publicación</h2>
+<p>¿Estás seguro de que deseas eliminar esta publicación?</p>
+<p><strong>{{ object.title }}</strong></p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn-logout">Eliminar</button>
+    <a href="{% url 'home' %}" class="btn">Cancelar</a>
+</form>
+{% endblock %}

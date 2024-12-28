@@ -1,0 +1,23 @@
+{% extends 'base_generic.html' %}
+
+{% block title %}Perfil de {{ profile.user.username }}{% endblock %}
+
+{% block content %}
+<h1>Perfil de {{ profile.user.username }}</h1>
+
+<!-- Imagen de perfil -->
+<div>
+    {% if profile.profile_image %}
+        <img src="{{ profile.profile_image.url }}" alt="Imagen de perfil" style="max-width: 150px; border-radius: 50%;">
+    {% else %}
+        <p>No has subido una imagen de perfil.</p>
+    {% endif %}
+</div>
+
+<!-- Información adicional -->
+<p><strong>Nombre de usuario:</strong> {{ profile.user.username }}</p>
+<p><strong>Email:</strong> {{ profile.user.email }}</p>
+<p><strong>Biografía:</strong> {{ profile.bio }}</p>
+
+<a href="{% url 'profile_update' %}" class="btn">Editar Perfil</a>
+{% endblock %}

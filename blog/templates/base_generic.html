@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}Mi Blog de Viajes{% endblock %}</title>
+
+    <!-- Meta Etiquetas para SEO -->
+    <meta name="description" content="{% block meta_description %}Descubre los mejores destinos turísticos y consejos de viaje en nuestro blog.{% endblock %}">
+    <meta name="keywords" content="viajes, destinos, blog, consejos de viaje">
+    <meta name="author" content="Tu Nombre">
+
+    <!-- Carga de archivos estáticos -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">  <!-- Icono del sitio -->
+
+    {% block extra_head %}{% endblock %} <!-- Bloque para agregar código extra en el head si es necesario -->
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <header>
+        <div class="navbar">
+            <h1><a href="/" class="logo">Mi Blog de Viajes</a></h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Inicio</a></li>
+                    <li><a href="{% url 'signup' %}">Crear cuenta</a></li>
+                    
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'profile' %}">Mi perfil</a></li> <!-- Enlace a Mi perfil -->
+                        <li>
+                            <form action="{% url 'logout' %}" method="post" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn-logout">Cerrar sesión</button>
+                            </form>
+                        </li>
+                    {% else %}
+                        <li><a href="{% url 'login' %}">Iniciar sesión</a></li>
+                    {% endif %}
+                    
+                    <li><a href="{% url 'create_post' %}">Crear Viaje</a></li>
+                    <li><a href="/about/">Acerca de</a></li>
+                    <li><a href="/contact/">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Bloque de mensajes -->
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <div class="message {{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Contenido principal de la página -->
+    <div class="container">
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+
+    <!-- Pie de página -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <p>&copy; 2024 Mi Blog de Viajes. Todos los derechos reservados.</p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com" target="_blank">Facebook</a>
+                    <a href="https://www.twitter.com" target="_blank">Twitter</a>
+                    <a href="https://www.instagram.com" target="_blank">Instagram</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    {% block extra_js %}{% endblock %}  <!-- Bloque para agregar JS extra si es necesario -->
+</body>
+</html>

@@ -1,0 +1,17 @@
+{% extends 'base_generic.html' %}
+
+{% block title %}Bienvenido a Mi Blog de Viajes{% endblock %}
+
+{% block content %}
+    <section>
+        <h2>Últimos Posts</h2>
+        <ul>
+            {% for post in posts %}
+                <li><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></li>
+                <p>{{ post.excerpt }}...</p>
+            {% empty %}
+                <p>No hay publicaciones disponibles aún.</p>
+            {% endfor %}
+        </ul>
+    </section>
+{% endblock %}
